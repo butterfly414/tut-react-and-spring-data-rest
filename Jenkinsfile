@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM',
-                          branches: [[name: 'master']],
+                          branches: [[name: 'main']],
                           extensions: [],
                           userRemoteConfigs: [[url: 'https://github.com/butterfly414/tut-react-and-spring-data-rest.git']]])
             }
