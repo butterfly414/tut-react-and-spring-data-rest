@@ -99,7 +99,7 @@ pipeline {
             steps {
                 // Configuration du settings.xml pour Nexus
                 configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
-                    bat """
+                    sh """
                         mvn -s %MAVEN_SETTINGS% deploy:deploy-file \
                         -Durl=http://localhost:8082//repository/maven-releases \
                         -DrepositoryId=nexus \
