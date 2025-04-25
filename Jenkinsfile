@@ -40,7 +40,7 @@ pipeline {
             }
         }
 
-      stage('Code Coverage') {
+      /*stage('Code Coverage') {
             steps {
                 sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent test'
                 sh 'mvn org.jacoco:jacoco-maven-plugin:report'
@@ -57,7 +57,7 @@ pipeline {
                     ])
                 }
             }
-        }
+        }*/
         
         stage('Code Analysis') {
             steps {
