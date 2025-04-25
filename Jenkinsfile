@@ -42,8 +42,8 @@ pipeline {
 
       stage('Code Coverage') {
             steps {
-                bat "mvn org.jacoco:jacoco-maven-plugin:prepare-agent test ${TEST_OPTS}"
-                bat "mvn org.jacoco:jacoco-maven-plugin:report"
+                sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent test'
+                sh 'mvn org.jacoco:jacoco-maven-plugin:report'
             }
             post {
                 always {
@@ -61,7 +61,7 @@ pipeline {
         
         stage('Code Analysis') {
             steps {
-                bat "mvn checkstyle:checkstyle pmd:pmd spotbugs:spotbugs ${ANALYSIS_OPTS}"
+                sh 'mvn checkstyle:checkstyle pmd:pmd spotbugs:spotbugs'
             }
             post {
                 always {
