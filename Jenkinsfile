@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     tools {
-        maven 'Maven 3.9.9'
+        maven 'Maven 3.6.3'
         jdk 'JDK17'
     }
     
@@ -101,7 +101,7 @@ pipeline {
                 configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
                     sh """
                         mvn -s %MAVEN_SETTINGS% deploy:deploy-file \
-                        -Durl=http://localhost:8082//repository/maven-releases \
+                        -Durl=http://localhost:8082/repository/maven-releases \
                         -DrepositoryId=nexus \
                         -Dfile=target/*.jar \
                         -DpomFile=pom.xml \
