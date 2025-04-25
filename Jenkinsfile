@@ -65,13 +65,17 @@ pipeline {
             }
             post {
                 always {
-                    recordIssues(
-                        tools: [
-                            checkStyle(pattern: '**/target/checkstyle-result.xml'),
-                            pmdParser(pattern: '**/target/pmd.xml'),
-                            spotBugs(pattern: '**/target/spotbugsXml.xml', useRankAsPriority: true)
-                        ],
-                        qualityGates: [[threshold: 1, type: 'NEW', unstable: true]]
+                    publishCheckstyle(
+                        pattern: '**/target/checkstyle-result.xml',
+                        unstableTotalAll: '1'
+                    )
+                    publishPmd(
+                        pattern: '**/target/pmd.xml',
+                        unstableTotalAll: '1'
+                    )
+                    publishSpotBugs(
+                        pattern: '**/target/spotbugsXml.xml',
+                        unstableTotalAll: '1'
                     )
                 }
             }
