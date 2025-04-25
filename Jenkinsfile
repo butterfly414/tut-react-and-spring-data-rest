@@ -29,7 +29,13 @@ pipeline {
             }
             post {
                 always {
-                    junit 'target/surefire-reports/*.xml'
+                    script {
+                        if (fileExists('target/surefire-reports/TEST-*.xml')) {
+                            junit 'target/surefire-reports/TEST-*.xml'
+                        } else {
+                            echo "Aucun rapport de test trouvé. Vérifiez l'exécution des tests."
+                        }
+                    }
                 }
             }
         }
