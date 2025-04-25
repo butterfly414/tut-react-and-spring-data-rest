@@ -67,5 +67,11 @@
 		<module>events</module>
 		<module>security</module>
 	</modules>
+	<distributionManagement>
+		<repository>
+			<id>nexus</id>
+			<url>http://localhost:8082/repository/maven-releases</url>
+		</repository>
+	</distributionManagement>
 
 </project>
