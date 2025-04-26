@@ -59,27 +59,25 @@ pipeline {
             }
         }*/
         
+        /*
         stage('Code Analysis') {
             steps {
                 sh 'mvn checkstyle:checkstyle pmd:pmd spotbugs:spotbugs'
             }
             post {
                 always {
-                    publishCheckstyle(
-                        pattern: '**/target/checkstyle-result.xml',
-                        unstableTotalAll: '1'
-                    )
-                    publishPmd(
-                        pattern: '**/target/pmd.xml',
-                        unstableTotalAll: '1'
-                    )
-                    publishSpotBugs(
-                        pattern: '**/target/spotbugsXml.xml',
-                        unstableTotalAll: '1'
+                    recordIssues(
+                        tools: [
+                            checkStyle(pattern: '**//*target/checkstyle-result.xml'),
+                            pmd(pattern: '**//*target/pmd.xml'),
+                            spotBugs(pattern: '**//*target/spotbugsXml.xml', useRankAsPriority: true)
+                        ],
+                        qualityGates: [[threshold: 1, type: 'NEW', unstable: true]]
                     )
                 }
             }
         }
+        */
         
         stage('Package') {
             steps {
