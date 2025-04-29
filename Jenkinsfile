@@ -94,7 +94,7 @@ pipeline {
             }
         }
 
-      stage('Deploy to Nexus') {
+      /*stage('Deploy to Nexus') {
             when {
                 expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
             }
@@ -112,7 +112,7 @@ pipeline {
                 }
             }
         }
-    }
+    }*/
     
     post {
         always {
