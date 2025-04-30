@@ -51,11 +51,11 @@ pipeline {
         stage('Documentation Maven Site') {
             steps {
                 sh './mvnw site'
-                publishHTML(target: [
+                /*publishHTML(target: [
                     reportDir: 'target/site',
                     reportFiles: 'index.html',
                     reportName: 'Documentation Projet'
-                ])
+                ])*/
             }
         }
         
