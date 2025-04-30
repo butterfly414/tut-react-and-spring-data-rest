@@ -19,13 +19,13 @@ pipeline {
         
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                sh './mvnw clean compile'
             }
         }
         
         stage('Test') {
             steps {
-                sh 'mvn test'
+                sh './mvnw test'
             }
             post {
                 always {
@@ -40,54 +40,44 @@ pipeline {
             }
         }
 
-      /*stage('Code Coverage') {
+      /*stage('Couverture') {
             steps {
-                sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent test'
-                sh 'mvn org.jacoco:jacoco-maven-plugin:report'
-            }
-            post {
-                always {
-                    publishHTML(target: [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: false,
-                        keepAll: true,
-                        reportDir: 'target/site/jacoco',
-                        reportFiles: 'index.html',
-                        reportName: 'JaCoCo Report'
-                    ])
-                }
+                echo "🧪 Lancement des tests..."
+                sh './mvnw test'
+
+                echo "📈 Publication des rapports JUnit et Jacoco"
+                junit '**/target/surefire-reports/*.xml'
+                jacoco execPattern: '**/target/jacoco.exec', classPattern: '**/target/classes', sourcePattern: '**/src/main/java', inclusionPattern: '**/*.class', exclusionPattern: ''
             }
         }*/
-        
-        /*
-        stage('Code Analysis') {
+
+        stage('Analyse statique (Checkstyle + PMD)') {
             steps {
-                sh 'mvn checkstyle:checkstyle pmd:pmd spotbugs:spotbugs'
-            }
-            post {
-                always {
-                    recordIssues(
-                        tools: [
-                            checkStyle(pattern: '**//*target/checkstyle-result.xml'),
-                            pmd(pattern: '**//*target/pmd.xml'),
-                            spotBugs(pattern: '**//*target/spotbugsXml.xml', useRankAsPriority: true)
-                        ],
-                        qualityGates: [[threshold: 1, type: 'NEW', unstable: true]]
-                    )
-                }
+                sh './mvnw checkstyle:checkstyle pmd:pmd'
+                // Les résultats se trouvent dans target/site
             }
         }
-        */
+
+        stage('Documentation Maven Site') {
+            steps {
+                sh './mvnw site'
+                publishHTML(target: [
+                    reportDir: 'target/site',
+                    reportFiles: 'index.html',
+                    reportName: 'Documentation Projet'
+                ])
+            }
+        }
         
         stage('Package') {
             steps {
-                sh 'mvn package'
+                sh './mvnw package'
             }
         }
         
         stage('Deploy') {
             steps {
-                sh 'mvn deploy'
+                sh './mvnw deploy'
             }
         }
 
