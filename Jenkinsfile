@@ -40,17 +40,6 @@ pipeline {
             }
         }
 
-      /*stage('Couverture') {
-            steps {
-                echo "🧪 Lancement des tests..."
-                sh './mvnw test'
-
-                echo "📈 Publication des rapports JUnit et Jacoco"
-                junit '**/target/surefire-reports/*.xml'
-                jacoco execPattern: '**/target/jacoco.exec', classPattern: '**/target/classes', sourcePattern: '**/src/main/java', inclusionPattern: '**/*.class', exclusionPattern: ''
-            }
-        }*/
-
         stage('Analyse statique (Checkstyle + PMD)') {
             steps {
                 sh './mvnw checkstyle:checkstyle pmd:pmd'
