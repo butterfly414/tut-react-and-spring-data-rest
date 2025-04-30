@@ -1,3 +1,4 @@
+@NonCPS
 pipeline {
     agent any
     
